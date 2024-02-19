@@ -6,6 +6,14 @@ launch.py script location:
 ```bash
 /home/cs744/miniconda3/lib/python3.11/site-packages/torch/distributed/launch.py
 ```
+### Node Reference
+A primary node is running with 3 distributed docker containers according to:
+
+- "node0":"172.18.0.2:60000"
+- "node1":"172.18.0.3:60001"
+- "node2":"172.18.0.4:60002"
+- "node3":"172.18.0.5:60003"
+
 ### Homework 2: Remaining Tasks
 
 ### Code [AT]
