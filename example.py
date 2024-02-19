@@ -23,6 +23,14 @@ if __name__ == "__main__":
     rank = 0  # TODO change me!
     init_process(rank, world_size)
     
+# >>> sampler = DistributedSampler(dataset) if is_distributed else None
+# >>> loader = DataLoader(dataset, shuffle=(sampler is None),
+# ...                     sampler=sampler)
+# >>> for epoch in range(start_epoch, n_epochs):
+# ...     if is_distributed:
+# ...         sampler.set_epoch(epoch)
+
+
 # python main.py --master-ip $ip_address$ --num-nodes 4 --rank $rank$
 
 # env_dict = [
@@ -124,14 +132,14 @@ if __name__ == "__main__":
 
 
 # if __name__ == "__main__":
-#     parser = argparse.ArgumentParser()
-#     # This is passed in via launch.py
-#     parser.add_argument("--local_rank", type=int, default=0)
-#     # This needs to be explicitly passed in
-#     parser.add_argument("--local_world_size", type=int, default=1)
-#     args = parser.parse_args()
-#     # The main entry point is called directly without using subprocess
-#     spmd_main(args.local_world_size, args.local_rank)
+    # parser = argparse.ArgumentParser()
+    # # This is passed in via launch.py
+    # parser.add_argument("--local_rank", type=int, default=0)
+    # This needs to be explicitly passed in
+    # parser.add_argument("--local_world_size", type=int, default=1)
+    # args = parser.parse_args()
+    # # The main entry point is called directly without using subprocess
+    # spmd_main(args.local_world_size, args.local_rank)
 
 """
 python example.py

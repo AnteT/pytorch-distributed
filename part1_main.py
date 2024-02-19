@@ -58,8 +58,9 @@ def train_model(model, train_loader, optimizer, criterion, epoch):
         running_loss += loss.item()
         if batch_idx % 20 == 19:  # Print every 20 mini-batches
             current_data_iteration += 1
-            print('[Epoch: %d, Batch: %5d] Loss: %.3f' %(epoch, batch_idx + 1, running_loss / 20))
-            training_data[current_data_iteration] = [batch_idx, running_loss/20, iteration_time]
+            print('[Epoch: %d, Batch: %5d] Loss: %.3f, Avg Batch Loss: %.3f' %(epoch, batch_idx + 1, loss.item(), running_loss/20))
+            training_data[current_data_iteration] = [batch_idx, loss.item(), running_loss/20, iteration_time]
+            running_loss = 0.0
 
     average_time_per_iteration = total_time / len(train_loader)
     print("Average time per iteration for all 40 iterations:", average_time_per_iteration)
@@ -88,6 +89,8 @@ def test_model(model, test_loader, criterion):
             
 
 def main():
+    torch.manual_seed(42)
+    np.random.seed(42)
     normalize = transforms.Normalize(mean=[x/255.0 for x in [125.3, 123.0, 113.9]],
                                 std=[x/255.0 for x in [63.0, 62.1, 66.7]])
     transform_train = transforms.Compose([
@@ -127,18 +130,21 @@ def main():
         test_model(model, test_loader, training_criterion)
     
     print('-'*120)
-    print(f'iteration / batch_idx / loss / iteration_time')
+    print(f'iteration / batch_idx / loss / avg batch loss / iteration_time')
     
     with open('part-1.pkl', 'wb') as handle:
         pickle.dump(training_data, handle, protocol=pickle.HIGHEST_PROTOCOL)
 
     for k,v in training_data.items():
-        print(f'{k:<3} {v[0]:<4} {v[1]:.2f} {v[2]:.2f}')
+        print(f'{k:<3} {v[0]:<4} {v[1]:.2f} {v[2]:.2f} {v[3]:.2f}')
     print('-'*120)
-
-
     print('finished')
 
 
 if __name__ == "__main__":
     main()
+
+
+"""
+/home/cs744/hw2/part2_main.py
+"""
